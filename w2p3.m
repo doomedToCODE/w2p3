@@ -1,13 +1,14 @@
+m = 1000;
+b = 50;
+r = 10;
+
+s = tf('s');
+P_cruise = 1/(m*s + b);
 Kp = 800;
 Ki = 40;
-Kd = 100;
-s = tf('s');
-P = 1/(s^2 + 10*s + 20);
-step(P)
+C = pid(Kp,Ki);
 
-C = pid(Kp,Ki,Kd)
-T = feedback(C*P,1);
+T = feedback(C*P_cruise,1);
 
-t = 0:0.01:2;
-step(T,t)
- pidTuner(P,'p')
+step(r*T,t)
+axis([0 20 0 10])
